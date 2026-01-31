@@ -23,19 +23,23 @@ public class CalculatorFxGui extends Application {
     public void start(Stage ps) {
 
         txt = new Label("0");
+
         txt.setFont(new Font(40));
+
         txt.setAlignment(Pos.CENTER_RIGHT);
+
         txt.setMaxWidth(Double.MAX_VALUE);
-        txt.setPadding(new Insets(0, 10, 0, 0));
 
-        Label h = new Label("HEX  0");
-        Label d = new Label("DEC  0");
-        Label o = new Label("OCT  0");
-        Label b = new Label("BIN  0");
+        txt.setPadding(new Insets(0, 20, 0, 0));
 
-        VBox vb = new VBox(5);
-        vb.setPadding(new Insets(10));
-        vb.getChildren().addAll(txt, h, d, o, b);
+        Label h = new Label("HEX");
+        Label d = new Label("DEC");
+        Label o = new Label("OCT");
+        Label b = new Label("BIN");
+
+        VBox vb = new VBox(10);
+        vb.setPadding(new Insets(12));
+        vb.getChildren().addAll(txt, h, o, d, b);
 
         GridPane gp = new GridPane();
         gp.setHgap(5);
@@ -56,13 +60,14 @@ public class CalculatorFxGui extends Application {
 
         Button btnC = new Button("C");
         btnC.setPrefSize(50, 40);
+        gp.add(btnC, 3, 0);
         btnC.setOnAction(e -> {
             txt.setText("0");
             v1 = 0;
             op = "";
             start = true;
         });
-        gp.add(btnC, 3, 0);
+
 
         Button btnD = new Button("Del");
         btnD.setPrefSize(50, 40);
