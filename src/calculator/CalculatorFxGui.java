@@ -15,21 +15,17 @@ import javafx.stage.Stage;
 public class CalculatorFxGui extends Application {
 
     Label txt;
-    long v1 = 0;
-    String op = "";
+    String v1 = "";
+    BinaryCalculations currentCalc;
     boolean start = true;
 
     @Override
     public void start(Stage ps) {
 
         txt = new Label("0");
-
         txt.setFont(new Font(40));
-
         txt.setAlignment(Pos.CENTER_RIGHT);
-
         txt.setMaxWidth(Double.MAX_VALUE);
-
         txt.setPadding(new Insets(0, 20, 0, 0));
 
         Label h = new Label("HEX  0");
@@ -63,11 +59,10 @@ public class CalculatorFxGui extends Application {
         gp.add(btnC, 3, 0);
         btnC.setOnAction(e -> {
             txt.setText("0");
-            v1 = 0;
-            op = "";
+            v1 = "";
+            currentCalc = null;
             start = true;
         });
-
 
         Button btnD = new Button("Del");
         btnD.setPrefSize(50, 40);
@@ -92,8 +87,8 @@ public class CalculatorFxGui extends Application {
         Button btnDiv = new Button("/");
         btnDiv.setPrefSize(50, 40);
         btnDiv.setOnAction(e -> {
-            v1 = Long.parseLong(txt.getText(), 2);
-            op = "/";
+            v1 = txt.getText();
+            currentCalc = new Division();
             start = true;
         });
         gp.add(btnDiv, 4, 1);
@@ -117,8 +112,8 @@ public class CalculatorFxGui extends Application {
         Button btnMul = new Button("X");
         btnMul.setPrefSize(50, 40);
         btnMul.setOnAction(e -> {
-            v1 = Long.parseLong(txt.getText(), 2);
-            op = "X";
+            v1 = txt.getText();
+            currentCalc = new Multiplication();
             start = true;
         });
         gp.add(btnMul, 4, 2);
@@ -142,8 +137,8 @@ public class CalculatorFxGui extends Application {
         Button btnSub = new Button("-");
         btnSub.setPrefSize(50, 40);
         btnSub.setOnAction(e -> {
-            v1 = Long.parseLong(txt.getText(), 2);
-            op = "-";
+            v1 = txt.getText();
+            currentCalc = new Subtraction();
             start = true;
         });
         gp.add(btnSub, 4, 3);
@@ -175,8 +170,8 @@ public class CalculatorFxGui extends Application {
         Button btnAdd = new Button("+");
         btnAdd.setPrefSize(50, 40);
         btnAdd.setOnAction(e -> {
-            v1 = Long.parseLong(txt.getText(), 2);
-            op = "+";
+            v1 = txt.getText();
+            currentCalc = new Addition();
             start = true;
         });
         gp.add(btnAdd, 4, 4);
@@ -208,15 +203,11 @@ public class CalculatorFxGui extends Application {
         Button btnEq = new Button("=");
         btnEq.setPrefSize(50, 40);
         btnEq.setOnAction(e -> {
-            long v2 = Long.parseLong(txt.getText(), 2);
-            long res = 0;
-            if (op.equals("+")) res = v1 + v2;
-            if (op.equals("-")) res = v1 - v2;
-            if (op.equals("X")) res = v1 * v2;
-            if (op.equals("/")) {
-                if (v2 != 0) res = v1 / v2;
+            String v2 = txt.getText();
+            if (currentCalc != null) {
+                String res = currentCalc.calculate(v1, v2);
+                txt.setText(res);
             }
-            txt.setText(Long.toBinaryString(res));
             start = true;
         });
         gp.add(btnEq, 4, 5);
