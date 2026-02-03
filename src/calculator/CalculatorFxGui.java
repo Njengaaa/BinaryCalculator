@@ -32,10 +32,10 @@ public class CalculatorFxGui extends Application {
 
         txt.setPadding(new Insets(0, 20, 0, 0));
 
-        Label h = new Label("HEX");
-        Label d = new Label("DEC");
-        Label o = new Label("OCT");
-        Label b = new Label("BIN");
+        Label h = new Label("HEX  0");
+        Label d = new Label("DEC  0");
+        Label o = new Label("OCT  0");
+        Label b = new Label("BIN  0");
 
         VBox vb = new VBox(10);
         vb.setPadding(new Insets(12));
